@@ -1,8 +1,8 @@
 import json
 import os
-from typing import Dict, Any
+from typing import Dict, Tuple
 
-def load_data(path: str) -> tuple[Dict[int, int], Dict[int, Dict[str, int]]]:
+def load_data(path: str) -> Tuple[Dict[int, int], Dict[int, Dict[str, int]]]:
     if os.path.exists(path):
         with open(path, 'r', encoding='utf-8') as f:
             data = json.load(f)
