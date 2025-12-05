@@ -1,14 +1,14 @@
-from telegram import Update
-from telegram.ext import ContextTypes
-from utils.storage import load_data, save_data
-from config import DATA_PATH, ADMIN_ID
+[translate:from telegram import Update]
+[translate:from telegram.ext import ContextTypes]
+[translate:from config import DATA_PATH, ADMIN_ID]
+[translate:from utils.storage import load_data, save_data]  # ← Совместимые функции
 
 user_partners: dict[int, int] = {}
 admin_messages: dict[int, dict[str, int]] = {}
 
 def reload_data():
     global user_partners, admin_messages
-    user_partners, admin_messages = load_data(DATA_PATH)
+    user_partners, admin_messages = load_data(DATA_PATH)  # ← load_data возвращает tuple
 
 async def find_partner(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
@@ -26,7 +26,7 @@ async def find_partner(update: Update, context: ContextTypes.DEFAULT_TYPE):
         partner_id = free_users[0]
         user_partners[user_id] = partner_id
         user_partners[partner_id] = user_id
-        save_data(DATA_PATH, user_partners, admin_messages)
+        save_data(DATA_PATH, user_partners, admin_messages)  # ← Совместимая save_data
         await update.message.reply_text('✅ Партнер найден! Пишите сообщения.')
         await context.bot.send_message(partner_id, '✅ Партнер найден! Пишите сообщения.')
     else:
