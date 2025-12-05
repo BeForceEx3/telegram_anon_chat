@@ -8,7 +8,7 @@ from telegram.ext import (
     filters,
     ContextTypes
 )
-from config import BOTTOKEN
+from config import BOT_TOKEN  # Изменено: BOTTOKEN → BOT_TOKEN
 import handlers.start
 import handlers.chat
 import handlers.admin
@@ -23,11 +23,11 @@ async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> N
     logging.error(f"Update {update} caused error {context.error}")
 
 def main():
-    if not BOTTOKEN:
-        print("BOTTOKEN не установлен!")
+    if not BOT_TOKEN:  # Изменено: BOTTOKEN → BOT_TOKEN
+        print("BOT_TOKEN не установлен!")
         return
     
-    app = Application.builder().token(BOTTOKEN).build()
+    app = Application.builder().token(BOT_TOKEN).build()  # Изменено: BOTTOKEN → BOT_TOKEN
     
     # Команды
     app.add_handler(CommandHandler("start", handlers.start.start))
